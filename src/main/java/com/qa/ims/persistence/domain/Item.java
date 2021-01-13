@@ -1,10 +1,14 @@
 package com.qa.ims.persistence.domain;
 
+import java.math.BigDecimal;
+
 public class Item {
 
 	private Long id;
 	private String itemName;
 	private double itemPrice;
+
+	BigDecimal bd1 = BigDecimal.valueOf(itemPrice);
 
 	public Item(String itemName, double itemPrice) {
 		this.itemName = itemName;
@@ -77,8 +81,8 @@ public class Item {
 		if (itemPrice == 0.0) {
 			if (other.itemPrice != 0.0)
 				return false;
-		} // else if (!itemPrice.equals(other.itemPrice))
-			// return false;
+		} else if (!bd1.equals(other.bd1))
+			return false;
 		return true;
 	}
 

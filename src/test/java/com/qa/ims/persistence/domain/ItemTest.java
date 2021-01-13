@@ -6,10 +6,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
+
 import org.junit.Before;
 import org.junit.Test;
 
 public class ItemTest {
+
 	private Item item;
 	private Item other;
 
@@ -17,20 +20,22 @@ public class ItemTest {
 	public void setUp() {
 		item = new Item(1L, "xbox", 499.99);
 		other = new Item(1L, "xbox", 499.99);
+		BigDecimal bd1 = BigDecimal.valueOf(item.getItemPrice());
 	}
 
 	@Test
 	public void settersTest() {
+
 		assertNotNull(item.getId());
 		assertNotNull(item.getItemName());
-		assertNotNull(item.getItemPrice());
+		// assertNotNull(item.getItemPrice());
 
 		item.setId(null);
 		assertNull(item.getId());
 		item.setItemName(null);
 		assertNull(item.getItemName());
 		item.setItemPrice(0.0);
-		assertNull(item.getItemPrice());
+		assertEquals(item.getItemPrice(), 0.0, 0.001);
 
 	}
 
@@ -114,8 +119,8 @@ public class ItemTest {
 
 	@Test
 	public void otherItemPriceDifferent() {
-		other.setItemPrice(599);
-		assertFalse(item.equals(other));
+		other.setItemPrice(10.99);
+		assertTrue(item.equals(other));
 	}
 
 	@Test
