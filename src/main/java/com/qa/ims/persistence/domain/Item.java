@@ -74,11 +74,11 @@ public class Item {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		// if (surname == null) {
-		// if (other.surname != null)
-		// return false; again with the variable being a double
-		// } else if (!surname.equals(other.surname))
-		// return false;
+		if (itemPrice == 0.0) {
+			if (other.itemPrice != 0.0)
+				return false;
+		} // else if (!itemPrice.equals(other.itemPrice))
+			// return false;
 		return true;
 	}
 
