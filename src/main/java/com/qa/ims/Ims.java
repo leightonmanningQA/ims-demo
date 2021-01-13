@@ -13,9 +13,12 @@ import org.apache.log4j.Logger;
 import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
+import com.qa.ims.controller.ItemController;
 import com.qa.ims.persistence.dao.CustomerDaoMysql;
+import com.qa.ims.persistence.dao.ItemDaoMysql;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.services.CustomerServices;
+import com.qa.ims.services.ItemServices;
 import com.qa.ims.utils.Utils;
 
 public class Ims {
@@ -29,40 +32,42 @@ public class Ims {
 		String password = Utils.getInput();
 
 		init(username, password);
-		
-		
-		LOGGER.info("Which entity would you like to use?");
-		Domain.printDomains();
+		boolean stop = false;
+		do {
+			LOGGER.info("Which entity would you like to use?");
+			Domain.printDomains();
 
-		Domain domain = Domain.getDomain();
-		
-		if(domain.name()=="STOP") {
-			LOGGER.info("SO LONG!");
-			System.exit(0); 
-		}
-		
-		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
-		
-
-		Action.printActions();
-		Action action = Action.getAction();
-
-		switch (domain) {
-		case CUSTOMER:
-			CustomerController customerController = new CustomerController(
-					new CustomerServices(new CustomerDaoMysql(username, password)));
-			doAction(customerController, action);
-			break;
-		case ITEM:
-			break;
-		case ORDER:
-			break;
-		case STOP:
-			 break;
-		default:
-			break;
+			Domain domain = Domain.getDomain();
+			if (domain.name() == "STOP") {
+				LOGGER.info("SO LONG!");
+				System.exit(0);
 			}
-	
+
+			LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
+
+			Action.printActions();
+			Action action = Action.getAction();
+
+			switch (domain) {
+			case CUSTOMER:
+				CustomerController customerController = new CustomerController(
+						new CustomerServices(new CustomerDaoMysql(username, password)));
+				doAction(customerController, action);
+				break;
+			case ITEM:
+				ItemController itemController = new ItemController(
+						new ItemServices(new ItemDaoMysql(username, password)));
+				doAction(itemController, action);
+			case ORDER:
+				break;
+			case STOP:
+				stop = true;
+				break;
+			default:
+				break;
+			}
+		} while (!stop);
+
 	}
 
 	public void doAction(CrudController<?> crudController, Action action) {
