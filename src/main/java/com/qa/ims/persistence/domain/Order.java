@@ -1,19 +1,55 @@
 package com.qa.ims.persistence.domain;
 
+import java.util.ArrayList;
+
 public class Order {
+
 	private Long orderId;
 	private Long customerId;
 	private String postcode;
+
+	private Long itemId;
+	private int quantity;
+	private ArrayList<Item> iteminorder = new ArrayList();
 
 	public Order(Long customerId, String postcode) {
 		this.customerId = customerId;
 		this.postcode = postcode;
 	}
 
+	public Order(Long itemId, int quantity) {
+		this.customerId = itemId;
+		this.quantity = quantity;
+	}
+
 	public Order(Long orderId, Long customerId, String postcode) {
 		this.orderId = orderId;
 		this.customerId = customerId;
 		this.postcode = postcode;
+	}
+
+	public Order(Long orderId, Long itemId, int quantity) {
+		super();
+		this.orderId = orderId;
+		this.itemId = itemId;
+		this.quantity = quantity;
+	}
+
+	public Order(Long orderId, Long customerId, String postcode, Long itemId, int quantity) {
+		super();
+		this.orderId = orderId;
+		this.customerId = customerId;
+		this.postcode = postcode;
+		this.itemId = itemId;
+		this.quantity = quantity;
+	}
+
+	public ArrayList<Item> getIteminorder() {
+		return iteminorder;
+	}
+
+	public void setIteminorder(ArrayList<Item> iteminorder) {
+		this.iteminorder = iteminorder;
 	}
 
 	public Long getOrderId() {
@@ -38,6 +74,22 @@ public class Order {
 
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
+	}
+
+	public Long getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(Long itemId) {
+		this.itemId = itemId;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	@Override

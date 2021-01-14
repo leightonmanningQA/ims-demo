@@ -22,6 +22,10 @@ public class OrderController implements CrudController<Order> {
 		return Utils.getInput();
 	}
 
+	int getIntinput() {
+		return Utils.getIntinput();
+	}
+
 	/**
 	 * Reads all orders to the logger
 	 */
@@ -44,7 +48,18 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter a postcode");
 		String postcode = getInput();
 		Order order = orderService.create(new Order(customerId, postcode));
-		LOGGER.info("Order created, your order ID is: " + order.getOrderId() + " Please make note of it");
+		LOGGER.info("Order created, your order ID is: " + order.getOrderId());
+		LOGGER.info("Enter the items ID you wish to add to the order, or type no to quit.");
+		String answer = getInput();
+
+		while (answer != "no") {
+			Long itemId = Long.valueOf(getInput());
+			LOGGER.info("Enter the quantity you would like");
+			int quantity = getIntinput();
+
+			Order orderline = orderService.addItem(new Order(order.getOrderId(), itemId, quantity));
+		}
+
 		return order;
 	}
 
@@ -69,9 +84,25 @@ public class OrderController implements CrudController<Order> {
 	 */
 	@Override
 	public void delete() {
-		LOGGER.info("Please enter the id of the order you would like to delete");
-		Long orderId = Long.valueOf(getInput());
-		orderService.delete(orderId);
+		LOGGER.info("Do you want to delete an item from and order or full order(item/order)");
+		String answer = getInput();
+		if (answer == "order") {
+			LOGGER.info("Enter the ID of the order you wish to delete");
+			Long orderId = Long.valueOf(getInput());
+			orderService.delete(orderId);
+		} else if (answer == "item") {
+			LOGGER.info("Enter the ID of the order you wish to delete");
+		}
 	}
+
+//	public void additem() {
+//		LOGGER.info("Please enter the id of your order");
+//		Long orderId = Long.valueOf(getInput());
+//		LOGGER.info("Please enter the id of the item you want");
+//		Long itemId = Long.valueOf(getInput());
+//		LOGGER.info("How many of the item do you want");
+//		int amount = getIntinput();
+//		orderService.additem();
+//	}
 
 }

@@ -48,7 +48,13 @@ public class Ims {
 
 			LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
 
-			Action.printActions();
+//			if (domain.name() == "ORDER") {
+//				ActionOrder.printActions();
+//			} else {
+//				Action.printActions();
+//			}
+			// ActionOrder ao = ActionOrder.getAction();
+
 			Action action = Action.getAction();
 
 			switch (domain) {
@@ -96,6 +102,31 @@ public class Ims {
 		default:
 			break;
 		}
+//		public void doActionOrder(CrudController<?> crudController, Action ao) {
+//			switch (action) {
+//			case CREATE:
+//				crudController.create();
+//				break;
+//			case READ:
+//				crudController.readAll();
+//				break;
+//			case UPDATE:
+//				crudController.update();
+//				break;
+//			case DELETE:
+//				crudController.delete();
+//				break;
+//			case RETURN:
+//				break;
+//			case ADDITEM:
+//				crudController.additem();
+//				break;
+//			case REMOVEITEM:
+//				crudController.removeitem();
+//			default:
+//				break;
+//			}
+//		}
 	}
 
 	/**

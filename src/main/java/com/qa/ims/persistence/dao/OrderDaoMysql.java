@@ -93,6 +93,18 @@ public class OrderDaoMysql implements Dao<Order> {
 		return null;
 	}
 
+	public Order addItem(Order order) {
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("insert into orderlines(orderId, itemId, quantity) values('" + order.getOrderId()
+					+ "','" + order.getItemId() + "','" + order.getQuantity() + "')");
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
 	public Order readOrder(Long orderId) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();
@@ -142,4 +154,5 @@ public class OrderDaoMysql implements Dao<Order> {
 			LOGGER.error(e.getMessage());
 		}
 	}
+
 }

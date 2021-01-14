@@ -20,4 +20,10 @@ public class Utils {
 		return scanner.nextDouble();
 	}
 
+	public static int getIntinput() {
+		@SuppressWarnings("resource")
+		Scanner scanner = new Scanner(System.in);
+		return scanner.nextInt();
+	}
+
 }
