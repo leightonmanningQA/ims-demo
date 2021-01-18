@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 
 public class OrderDaoMysql implements Dao<Order> {
@@ -85,6 +86,7 @@ public class OrderDaoMysql implements Dao<Order> {
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("insert into orders(customerId, postcode) values('" + order.getCustomerId() + "','"
 					+ order.getPostcode() + "')");
+
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
@@ -93,17 +95,17 @@ public class OrderDaoMysql implements Dao<Order> {
 		return null;
 	}
 
-	public Order addItem(Order order) {
-		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("insert into orderlines(orderId, itemId, quantity) values('" + order.getOrderId()
-					+ "','" + order.getItemId() + "','" + order.getQuantity() + "')");
-		} catch (Exception e) {
-			LOGGER.debug(e.getStackTrace());
-			LOGGER.error(e.getMessage());
-		}
-		return null;
-	}
+//	public Order addItem(Order order) {
+//		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+//				Statement statement = connection.createStatement();) {
+//			statement.executeUpdate("insert into orderlines(orderId, itemId, quantity) values('" + order.getOrderId()
+//	+ "','" + order.getItemId() + "','" + order.getQuantity() + "')");
+//		} catch (Exception e) {
+//			LOGGER.debug(e.getStackTrace());
+//			LOGGER.error(e.getMessage());
+//		}
+//		return null;
+//	}
 
 	public Order readOrder(Long orderId) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
@@ -127,10 +129,13 @@ public class OrderDaoMysql implements Dao<Order> {
 	 */
 	@Override
 	public Order update(Order order) {
+		Item item = order.getItem();
+		int quantity = order.getQuantity();
+
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("update orders set customerId ='" + order.getCustomerId() + "', postcode ='"
-					+ order.getPostcode() + "' where orderId =" + order.getOrderId());
+			statement.executeUpdate("INSERT INTO orderlines(orderId,itemId, quantity)" + "VALUES(" + order.getOrderId()
+					+ ", " + item.getId() + ", " + quantity + ")");
 			return readOrder(order.getOrderId());
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
@@ -138,6 +143,22 @@ public class OrderDaoMysql implements Dao<Order> {
 		}
 		return null;
 	}
+//	@Override
+//	public Order updateOrder(Order order) {
+//		Item item = order.getItem();
+//		int quantity = order.getQuantity();
+//
+//		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+//				Statement statement = connection.createStatement();) {
+//			statement.executeUpdate("update orders set customerId ='" + order.getCustomerId() + "', postcode ='"
+//					+ order.getPostcode() + "' where orderId =" + order.getOrderId());
+//			return readOrder(order.getOrderId());
+//		} catch (Exception e) {
+//			LOGGER.debug(e.getStackTrace());
+//			LOGGER.error(e.getMessage());
+//		}
+//		return null;
+//	}
 
 	/**
 	 * Deletes a order in the database

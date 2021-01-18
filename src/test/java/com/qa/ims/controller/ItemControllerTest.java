@@ -1,5 +1,10 @@
 package com.qa.ims.controller;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -8,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.services.ItemServices;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -28,41 +34,43 @@ public class ItemControllerTest {
 	@InjectMocks
 	private ItemController itemController;
 
-//	@Test
-//	public void readAllTest() {
-//		CustomerController customerController = new CustomerController(customerServices);
-//		List<Customer> customers = new ArrayList<>();
-//		customers.add(new Customer("Chris", "P"));
-//		customers.add(new Customer("Rhys", "T"));
-//		customers.add(new Customer("Nic", "J"));
-//		Mockito.when(customerServices.readAll()).thenReturn(customers);
-//		assertEquals(customers, customerController.readAll());
-//	}
+	@Test
+	public void readAllTest() {
+		ItemController itemController = new ItemController(itemServices);
+		List<Item> items = new ArrayList<>();
+		items.add(new Item("Xbox", 499.99));
+		items.add(new Item("Wii", 399.99));
+		items.add(new Item("Ps", 350.99));
+		Mockito.when(itemServices.readAll()).thenReturn(items);
+		assertEquals(items, itemController.readAll());
+	}
 
-//	@Test
-//	public void createTest() {
-//		String firstName = "Chris";
-//		String surname = "Perrins";
-//		Mockito.doReturn(firstName, surname).when(customerController).getInput();
-//		Customer customer = new Customer(firstName, surname);
-//		Customer savedCustomer = new Customer(1L, "Chris", "Perrins");
-//		Mockito.when(customerServices.create(customer)).thenReturn(savedCustomer);
-//		assertEquals(savedCustomer, customerController.create());
-//	}
+	@Test
+	public void createTest() {
+		String itemName = "Xbox";
+		double itemPrice = 499.99;
+		Mockito.doReturn(itemName).when(itemController).getInput();
+		Mockito.doReturn(itemPrice).when(itemController).getDoubleInput();
+		Item item = new Item(itemName, itemPrice);
+		Item savedItem = new Item(1L, "Wii", 399.99);
+		Mockito.when(itemServices.create(item)).thenReturn(savedItem);
+		assertEquals(savedItem, itemController.create());
+	}
 
 	/**
 	 * 
 	 */
-//	@Test
-//	public void updateTest() {
-//		String id = "1";
-//		String itemName = "xbox";
-//		String itemValue = "599.99";
-//		Mockito.doReturn(id, itemName, itemValue).when(itemController).getInput();
-//		Item item = new Item(1L, itemName, itemValue);
-//		Mockito.when(itemServices.update(item)).thenReturn(item);
-//		assertEquals(item, itemController.update());
-//	}
+	@Test
+	public void updateTest() {
+		String id = "1";
+		String itemName = "xbox";
+		double itemValue = 599.99;
+		Mockito.doReturn(id, itemName).when(itemController).getInput();
+		Mockito.doReturn(itemValue).when(itemController).getDoubleInput();
+		Item item = new Item(1L, itemName, itemValue);
+		Mockito.when(itemServices.update(item)).thenReturn(item);
+		assertEquals(item, itemController.update());
+	}
 
 	/**
 	 * Delete doesn't return anything, so we can just verify that it calls the

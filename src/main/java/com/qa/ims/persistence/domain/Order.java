@@ -7,10 +7,18 @@ public class Order {
 	private Long orderId;
 	private Long customerId;
 	private String postcode;
-
+	private Item item = null;
 	private Long itemId;
 	private int quantity;
 	private ArrayList<Item> iteminorder = new ArrayList();
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
+	}
 
 	public Order(Long customerId, String postcode) {
 		this.customerId = customerId;

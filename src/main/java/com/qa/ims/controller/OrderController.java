@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.services.CrudServices;
 import com.qa.ims.utils.Utils;
@@ -13,9 +14,19 @@ public class OrderController implements CrudController<Order> {
 	public static final Logger LOGGER = Logger.getLogger(OrderController.class);
 
 	private CrudServices<Order> orderService;
+	private CrudServices<Item> ItemServices;
+	public static boolean option;
+
+	public OrderController(CrudServices<Order> orderService, CrudServices<Item> itemService) {
+		super();
+		this.orderService = orderService;
+		this.ItemServices = itemService;
+	}
 
 	public OrderController(CrudServices<Order> orderService) {
+		super();
 		this.orderService = orderService;
+
 	}
 
 	String getInput() {
@@ -39,27 +50,51 @@ public class OrderController implements CrudController<Order> {
 	}
 
 	/**
-	 * Creates a order by taking in user input
+	 * Creates a order by taking in user input. Also adds an item to an order.
 	 */
+
 	@Override
 	public Order create() {
+		String temp = "";
+		Double calcPrice = 0.0;
 		LOGGER.info("Please enter your customer ID.");
 		Long customerId = Long.valueOf(getInput());
 		LOGGER.info("Please enter a postcode");
 		String postcode = getInput();
+
 		Order order = orderService.create(new Order(customerId, postcode));
 		LOGGER.info("Order created, your order ID is: " + order.getOrderId());
-		LOGGER.info("Enter the items ID you wish to add to the order, or type no to quit.");
-		String answer = getInput();
+		List<Item> itemlist = ItemServices.readAll();
+		Item item = null;
+		boolean run = false;
 
-		while (answer != "no") {
+		while (!run) {
+			LOGGER.info("Enter the items ID you wish to add to the order");
 			Long itemId = Long.valueOf(getInput());
 			LOGGER.info("Enter the quantity you would like");
 			int quantity = getIntinput();
+			for (Item i : itemlist) {
+				if (i.getId() == itemId) {
+					item = i;
+					break;
+				}
+			}
+			order.setItem(item);
+			order.setQuantity(quantity);
+			Double price = quantity * item.getItemPrice();
 
-			Order orderline = orderService.addItem(new Order(order.getOrderId(), itemId, quantity));
+			Double finalPrice;
+			order = orderService.update(order);// in order dao
+			LOGGER.info("Are you done with your order, y for yes n for no");
+			temp = getInput().toLowerCase();
+			if (temp.equals("y")) {
+				run = true;
+				finalPrice = calcPrice + price;
+				LOGGER.info("The final price for those items is: " + finalPrice);
+			}
+			LOGGER.info("The price for those items is: " + price);
+			calcPrice = price + calcPrice;
 		}
-
 		return order;
 	}
 
@@ -68,7 +103,7 @@ public class OrderController implements CrudController<Order> {
 	 */
 	@Override
 	public Order update() {
-		LOGGER.info("Please enter the id of the order you would like to update");
+		LOGGER.info("Please enter the id of the orderline you would like to update");
 		Long orderId = Long.valueOf(getInput());
 		LOGGER.info("Please enter a customer id you would like to change to");
 		Long customerId = Long.valueOf(getInput());
@@ -78,6 +113,18 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Customer Updated");
 		return order;
 	}
+//	@Override
+//	public Order update() {
+//		LOGGER.info("Please enter the id of the order you would like to update");
+//		Long orderId = Long.valueOf(getInput());
+//		LOGGER.info("Please enter a customer id you would like to change to");
+//		Long customerId = Long.valueOf(getInput());
+//		LOGGER.info("Please enter a new postcode");
+//		String postcode = getInput();
+//		Order order = orderService.update(new Order(orderId, customerId, postcode));
+//		LOGGER.info("Customer Updated");
+//		return order;
+//	}
 
 	/**
 	 * Deletes an existing order by the id of the order
@@ -91,18 +138,11 @@ public class OrderController implements CrudController<Order> {
 			Long orderId = Long.valueOf(getInput());
 			orderService.delete(orderId);
 		} else if (answer == "item") {
-			LOGGER.info("Enter the ID of the order you wish to delete");
+			LOGGER.info("Enter the ID of the item you wish to delete");
+
+		} else {
+			LOGGER.info("you need to enter order or item");
 		}
 	}
-
-//	public void additem() {
-//		LOGGER.info("Please enter the id of your order");
-//		Long orderId = Long.valueOf(getInput());
-//		LOGGER.info("Please enter the id of the item you want");
-//		Long itemId = Long.valueOf(getInput());
-//		LOGGER.info("How many of the item do you want");
-//		int amount = getIntinput();
-//		orderService.additem();
-//	}
 
 }

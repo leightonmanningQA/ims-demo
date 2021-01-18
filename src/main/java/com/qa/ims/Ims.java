@@ -54,7 +54,7 @@ public class Ims {
 //				Action.printActions();
 //			}
 			// ActionOrder ao = ActionOrder.getAction();
-
+			Action.printActions();
 			Action action = Action.getAction();
 
 			switch (domain) {
@@ -70,7 +70,8 @@ public class Ims {
 				break;
 			case ORDER:
 				OrderController orderController = new OrderController(
-						new OrderServices(new OrderDaoMysql(username, password)));
+						new OrderServices(new OrderDaoMysql(username, password)),
+						new ItemServices(new ItemDaoMysql(username, password)));
 				doAction(orderController, action);
 				break;
 			case STOP:
