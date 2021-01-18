@@ -143,22 +143,19 @@ public class OrderDaoMysql implements Dao<Order> {
 		}
 		return null;
 	}
-//	@Override
-//	public Order updateOrder(Order order) {
-//		Item item = order.getItem();
-//		int quantity = order.getQuantity();
-//
-//		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
-//				Statement statement = connection.createStatement();) {
-//			statement.executeUpdate("update orders set customerId ='" + order.getCustomerId() + "', postcode ='"
-//					+ order.getPostcode() + "' where orderId =" + order.getOrderId());
-//			return readOrder(order.getOrderId());
-//		} catch (Exception e) {
-//			LOGGER.debug(e.getStackTrace());
-//			LOGGER.error(e.getMessage());
-//		}
-//		return null;
-//	}
+
+	@Override
+	public Order updateOrder(Order order) {
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate(
+					"UPDATE orders set postcode ='" + order.getPostcode() + "' where orderId =" + order.getOrderId());
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
 
 	/**
 	 * Deletes a order in the database
@@ -166,9 +163,21 @@ public class OrderDaoMysql implements Dao<Order> {
 	 * @param id - id of the order
 	 */
 	@Override
-	public void delete(long orderId) {
+	public void delete(long orderlineId) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("delete from orderlines where orderlineId = " + orderlineId);
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+	}
+
+	@Override
+	public void deleteorder(long orderlineId, long orderId) {
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("delete from orderlines where orderlineId = " + orderlineId);
 			statement.executeUpdate("delete from orders where orderId = " + orderId);
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());

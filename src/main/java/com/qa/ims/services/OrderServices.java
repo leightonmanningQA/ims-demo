@@ -27,4 +27,17 @@ public class OrderServices implements CrudServices<Order> {
 	public void delete(Long orderId) {
 		orderDao.delete(orderId);
 	}
+
+	@Override
+	public void deleteorder(Long orderlineId, Long orderId) {
+		orderDao.deleteorder(orderlineId, orderId);
+
+	}
+
+	@Override
+	public Order updateOrder(Order order) {
+		return orderDao.updateOrder(order);
+
+	}
+
 }

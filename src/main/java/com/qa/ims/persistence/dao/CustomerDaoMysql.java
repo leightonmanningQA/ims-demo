@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.domain.Order;
 
 public class CustomerDaoMysql implements Dao<Customer> {
 
@@ -141,6 +142,18 @@ public class CustomerDaoMysql implements Dao<Customer> {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
 		}
+	}
+
+	@Override
+	public void deleteorder(long orderlineId, long orderId) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Order updateOrder(Order order) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

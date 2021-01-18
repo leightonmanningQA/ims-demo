@@ -103,46 +103,35 @@ public class OrderController implements CrudController<Order> {
 	 */
 	@Override
 	public Order update() {
-		LOGGER.info("Please enter the id of the orderline you would like to update");
+		LOGGER.info("Please enter the id of the order you would like to update");
 		Long orderId = Long.valueOf(getInput());
-		LOGGER.info("Please enter a customer id you would like to change to");
-		Long customerId = Long.valueOf(getInput());
 		LOGGER.info("Please enter a new postcode");
 		String postcode = getInput();
-		Order order = orderService.update(new Order(orderId, customerId, postcode));
-		LOGGER.info("Customer Updated");
+		Order order = orderService.updateOrder(new Order(orderId, postcode));
+		LOGGER.info("Order Updated");
 		return order;
 	}
-//	@Override
-//	public Order update() {
-//		LOGGER.info("Please enter the id of the order you would like to update");
-//		Long orderId = Long.valueOf(getInput());
-//		LOGGER.info("Please enter a customer id you would like to change to");
-//		Long customerId = Long.valueOf(getInput());
-//		LOGGER.info("Please enter a new postcode");
-//		String postcode = getInput();
-//		Order order = orderService.update(new Order(orderId, customerId, postcode));
-//		LOGGER.info("Customer Updated");
-//		return order;
-//	}
 
 	/**
 	 * Deletes an existing order by the id of the order
 	 */
 	@Override
 	public void delete() {
-		LOGGER.info("Do you want to delete an item from and order or full order(item/order)");
+		LOGGER.info("Do you want to delete an item from an order or a full order(item/order)");
 		String answer = getInput();
-		if (answer == "order") {
+		if (answer.equals("item")) {
+			LOGGER.info("Enter the ID of the orderline you wish to delete");
+			Long orderlineId = Long.valueOf(getInput());
+			orderService.delete(orderlineId);
+		} else if (answer.equals("order")) {
+			LOGGER.info("Enter the ID of the orderline you wish to delete");
+			Long orderlineId = Long.valueOf(getInput());
 			LOGGER.info("Enter the ID of the order you wish to delete");
 			Long orderId = Long.valueOf(getInput());
-			orderService.delete(orderId);
-		} else if (answer == "item") {
-			LOGGER.info("Enter the ID of the item you wish to delete");
-
-		} else {
-			LOGGER.info("you need to enter order or item");
+			orderService.deleteorder(orderlineId, orderId);
 		}
+		LOGGER.info("Orderline Deleted");
 	}
+// one to delete orderlines another delete orderlines and orders
 
 }
