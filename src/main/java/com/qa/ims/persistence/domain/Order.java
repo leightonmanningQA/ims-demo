@@ -16,13 +16,14 @@ public class Order {
 		return item;
 	}
 
-	public void setItem(Item item) {
-		this.item = item;
+	public Order(Long orderId, String postcode) {
+		super();
+		this.orderId = orderId;
+		this.postcode = postcode;
 	}
 
-	public Order(Long customerId, String postcode) {
-		this.customerId = customerId;
-		this.postcode = postcode;
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
 	public Order(Long itemId, int quantity) {

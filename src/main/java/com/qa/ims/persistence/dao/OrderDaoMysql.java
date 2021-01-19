@@ -154,7 +154,7 @@ public class OrderDaoMysql implements Dao<Order> {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
 		}
-		return null;
+		return order;
 	}
 
 	/**
@@ -178,6 +178,7 @@ public class OrderDaoMysql implements Dao<Order> {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("delete from orderlines where orderlineId = " + orderlineId);
+			statement.executeUpdate("delete from orderlines where orderId = " + orderId);
 			statement.executeUpdate("delete from orders where orderId = " + orderId);
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
