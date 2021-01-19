@@ -48,7 +48,7 @@ public class OrderDaoMysqlTest {
 		Long cid = 1L;
 		String pc = "bb2 4jl";
 		// create a new order
-		Order order = new Order(cid, pc);
+		Order order = new Order(1L, cid, pc);
 		//
 		Order savedOrder = new Order(1L, cid, pc);
 

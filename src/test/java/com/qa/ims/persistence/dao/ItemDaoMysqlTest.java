@@ -1,6 +1,7 @@
 package com.qa.ims.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -52,5 +53,37 @@ public class ItemDaoMysqlTest {
 
 		item = itemDaoMysql.create(item);
 		assertEquals(savedItem, item);
+	}
+
+	@Test
+	public void updateTest() {
+		// create an instance of the class
+		ItemDaoMysql itemDaoMysql = new ItemDaoMysql(username, password);
+		// setting vals
+		String in = "xbox";
+		double ip = 499.99;
+		// create a new customer
+		Item item = new Item(in, ip);
+		//
+		Item savedItem = new Item(1L, in, ip);
+
+		item = itemDaoMysql.update(item);
+		assertNotEquals(savedItem, item);
+	}
+
+	@Test
+	public void deleteTest() {
+		// create an instance of the class
+		ItemDaoMysql itemDaoMysql = new ItemDaoMysql(jdbcConnectionUrl, username, password);
+		// setting vals
+		String in = "xbox";
+		double ip = 499.99;
+		// create a new customer
+		Item item = new Item(2L, in, ip);
+		//
+		Item savedItem = new Item(1L, in, ip);
+
+		itemDaoMysql.delete(1L);
+		assertNotEquals(item, savedItem);
 	}
 }

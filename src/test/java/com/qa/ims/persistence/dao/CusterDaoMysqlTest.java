@@ -1,6 +1,7 @@
 package com.qa.ims.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,8 +44,8 @@ public class CusterDaoMysqlTest {
 		// create anm instance of the class
 		CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(jdbcConnectionUrl, username, password);
 		// setting vals
-		String fn = "jim";
-		String sn = "bob";
+		String fn = "leighton";
+		String sn = "manning";
 		// create a new customer
 		Customer customer = new Customer(fn, sn);
 		//
@@ -53,4 +54,38 @@ public class CusterDaoMysqlTest {
 		customer = customerDaoMysql.create(customer);
 		assertEquals(savedCustomer, customer);
 	}
+
+	@Test
+	public void updateTest() {
+		// create an instance of the class
+		CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(username, password);
+		// setting vals
+		String fn = "leighton";
+		String sn = "manning";
+		// create a new customer
+		Customer customer = new Customer(fn, sn);
+		//
+		Customer savedCustomer = new Customer(1L, fn, sn);
+
+		customer = customerDaoMysql.update(customer);
+		assertNotEquals(savedCustomer, customer);
+	}
+
+	@Test
+	public void deleteTest() {
+		// create an instance of the class
+		CustomerDaoMysql customerDaoMysql = new CustomerDaoMysql(jdbcConnectionUrl, username, password);
+		// setting vals
+		String fn = "leighton";
+		String sn = "manning";
+		Long id = 1L;
+		// create a new customer
+		Customer customer = new Customer(fn, sn);
+		//
+		customer = customerDaoMysql.create(customer);
+
+		customerDaoMysql.delete(id);
+
+	}
+
 }
