@@ -12,14 +12,14 @@ public class Order {
 	private int quantity;
 	private ArrayList<Item> iteminorder = new ArrayList();
 
-	public Item getItem() {
-		return item;
-	}
-
 	public Order(Long orderId, String postcode) {
 		super();
 		this.orderId = orderId;
 		this.postcode = postcode;
+	}
+
+	public Item getItem() {
+		return item;
 	}
 
 	public void setItem(Item item) {
@@ -103,7 +103,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "orderId=" + orderId + ", customerId=" + customerId + ", postcode=" + postcode;
+		return "orderId=" + orderId + ",customerId=" + customerId + ",postcode=" + postcode;
 	}
 
 	@Override
