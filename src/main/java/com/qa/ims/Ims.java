@@ -14,11 +14,14 @@ import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
 import com.qa.ims.controller.ItemController;
+import com.qa.ims.controller.OrderController;
 import com.qa.ims.persistence.dao.CustomerDaoMysql;
 import com.qa.ims.persistence.dao.ItemDaoMysql;
+import com.qa.ims.persistence.dao.OrderDaoMysql;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.services.CustomerServices;
 import com.qa.ims.services.ItemServices;
+import com.qa.ims.services.OrderServices;
 import com.qa.ims.utils.Utils;
 
 public class Ims {
@@ -45,6 +48,12 @@ public class Ims {
 
 			LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
 
+//			if (domain.name() == "ORDER") {
+//				ActionOrder.printActions();
+//			} else {
+//				Action.printActions();
+//			}
+			// ActionOrder ao = ActionOrder.getAction();
 			Action.printActions();
 			Action action = Action.getAction();
 
@@ -58,7 +67,12 @@ public class Ims {
 				ItemController itemController = new ItemController(
 						new ItemServices(new ItemDaoMysql(username, password)));
 				doAction(itemController, action);
+				break;
 			case ORDER:
+				OrderController orderController = new OrderController(
+						new OrderServices(new OrderDaoMysql(username, password)),
+						new ItemServices(new ItemDaoMysql(username, password)));
+				doAction(orderController, action);
 				break;
 			case STOP:
 				stop = true;
@@ -89,6 +103,31 @@ public class Ims {
 		default:
 			break;
 		}
+//		public void doActionOrder(CrudController<?> crudController, Action ao) {
+//			switch (action) {
+//			case CREATE:
+//				crudController.create();
+//				break;
+//			case READ:
+//				crudController.readAll();
+//				break;
+//			case UPDATE:
+//				crudController.update();
+//				break;
+//			case DELETE:
+//				crudController.delete();
+//				break;
+//			case RETURN:
+//				break;
+//			case ADDITEM:
+//				crudController.additem();
+//				break;
+//			case REMOVEITEM:
+//				crudController.removeitem();
+//			default:
+//				break;
+//			}
+//		}
 	}
 
 	/**
