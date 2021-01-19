@@ -132,6 +132,5 @@ public class OrderController implements CrudController<Order> {
 		}
 		LOGGER.info("Orderline Deleted");
 	}
-// one to delete orderlines another delete orderlines and orders
 
 }
