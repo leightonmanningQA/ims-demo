@@ -1,4 +1,4 @@
-Coverage: 78%
+Coverage: 62%
 # Inventory Management System
 
 This is an application that a user can interact with via a Command-Line Interface. It is an inventory management system that can add customers and items to be used to create orders. All the objects are stored into a database. You're able to update customers,items and orders. The application will also calculate a cost for your order.
