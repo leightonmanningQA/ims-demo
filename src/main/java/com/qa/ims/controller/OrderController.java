@@ -62,7 +62,7 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter a postcode");
 		String postcode = getInput();
 
-		Order order = orderService.create(new Order(customerId, postcode));
+		Order order = orderService.create(new Order(1L, customerId, postcode));
 		LOGGER.info("Order created, your order ID is: " + order.getOrderId());
 		List<Item> itemlist = ItemServices.readAll();
 		Item item = null;

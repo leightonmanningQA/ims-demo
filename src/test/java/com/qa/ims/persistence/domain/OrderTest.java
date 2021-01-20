@@ -37,7 +37,7 @@ public class OrderTest {
 
 	public void itemTest() {
 		order.setItem(item);
-		assertNull(order.getItem());
+		assertNotNull(order.getItem());
 	}
 
 	@Test

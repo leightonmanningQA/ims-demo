@@ -42,7 +42,7 @@ public class Ims {
 
 			Domain domain = Domain.getDomain();
 			if (domain.name() == "STOP") {
-				LOGGER.info("SO LONG!");
+				LOGGER.info("THANKS FOR USING MY PROGRAM, GOODBYE!");
 				System.exit(0);
 			}
 

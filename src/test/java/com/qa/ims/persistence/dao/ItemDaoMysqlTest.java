@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -16,7 +17,7 @@ import com.qa.ims.Ims;
 import com.qa.ims.persistence.domain.Item;
 
 public class ItemDaoMysqlTest {
-	public static final Logger LOGGER = Logger.getLogger(CustomerDaoMysql.class);
+	public static final Logger LOGGER = Logger.getLogger(ItemDaoMysql.class);
 
 	private static String jdbcConnectionUrl = "jdbc:mysql://localhost:3306/ims_test";
 	private static String username = "root";
@@ -33,10 +34,22 @@ public class ItemDaoMysqlTest {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("delete from items;");
+			statement.executeUpdate("alter table items AUTO_INCREMENT=1");
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
 		}
+	}
+
+	@Test
+	public void readTest() {
+		ItemDaoMysql itemDaoMysql = new ItemDaoMysql(jdbcConnectionUrl, username, password);
+		List<Item> itemList = List.of(new Item(1L, "Xbox", 499.99), new Item(2L, "PS", 599.99),
+				new Item(3L, "Wii", 299));
+		for (Item i : itemList) {
+			itemDaoMysql.create(i);
+		}
+		assertEquals(itemList, itemDaoMysql.readAll());
 	}
 
 	@Test
