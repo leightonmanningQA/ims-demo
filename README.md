@@ -46,7 +46,7 @@ and click the button in the top right that reads "Fork".
 4.Once open you want to enter commands as follows
 
 ```
-**git clone your_link**
+git clone your_link
 
 ```
 5. Once the repository has been cloned you will have all the files needed to run and develop this application. Now we need to open this project in Eclipse. Open Eclipse and go to
@@ -118,7 +118,7 @@ Explain how to run the automated tests for this system. Break down into which te
 
 ### Unit Tests 
 
-Unit testing is a software testing method by which individual units of source code—sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures—are tested to determine whether they are fit for use.
+Unit testing is where individual units / components of a software are tested. The purpose is to validate that each unit of the software performs as designed.
 
 ```
 Right click on the testing portion of the project serc/test/java and click run as Junit Test. 
