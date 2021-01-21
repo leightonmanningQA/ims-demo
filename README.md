@@ -49,7 +49,7 @@ Go to link https://github.com/leightonmanningQA/ims-demo and click the button in
 4.Once open you want to enter commands as follows
 
 ```
-git clone link
+**git clone your_link**
 
 ```
 5. Once the repository has been cloned you will have all the files needed to run and develop this application. Now we need to open this project in Eclipse. Open Eclipse and go to
@@ -121,7 +121,7 @@ Explain how to run the automated tests for this system. Break down into which te
 
 ### Unit Tests 
 
-Unit testing tests parts of the program to check they are correct and working.
+Unit testing is a software testing method by which individual units of source code—sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures—are tested to determine whether they are fit for use.
 
 ```
 Right click on the testing portion of the project serc/test/java and click run as Junit Test. 
@@ -132,6 +132,11 @@ To check coverage right click on the entire project and click coverage as Junit 
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
+1. Open command line in the project folder
+2. Type **mvn clean** , we do this so that we can remove old builds of our code before rebuilding it again.
+3. Once the target folder has been removed you want to type **mvn package**, This will package all the source code in our Java project into the .jar file
+4. After this the target file will return. Navigate to that folder with the command **cd target**
+5. Run the program with **java -jar name-ims-0.0.1-jar-with-dependencies.jar**
 
 ## Built With
 
