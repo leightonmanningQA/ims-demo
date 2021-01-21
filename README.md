@@ -12,16 +12,24 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-You will have to have java installed first. Download open JDK here https://adoptopenjdk.net/index.html/
+You will have to have java installed first. Download open JDK here
+https://adoptopenjdk.net/index.html/
 ```
 ```
-I am using Eclipse to open and edit my files, I would recommend downloading it here https://www.eclipse.org/downloads/
+You will have to have maven installed as well. Download here
+https://maven.apache.org/index.html
 ```
 ```
-I am using mySQL workbench 8.0 to work on my database locally, I would recommend downloading it here https://dev.mysql.com/downloads/workbench/
+I am using Eclipse to open and edit my files, I would recommend downloading it here
+https://www.eclipse.org/downloads/
 ```
 ```
-Finally I'm using git for my version control and branches. I installed it from here https://gitforwindows.org/
+I am using mySQL workbench 8.0 to work on my database locally, I would recommend downloading it here
+https://dev.mysql.com/downloads/workbench/
+```
+```
+Finally I'm using git for my version control and branches. I installed it from here
+https://gitforwindows.org/
 ```
 
 ### Installing
@@ -35,32 +43,35 @@ Go to link https://github.com/leightonmanningQA/ims-demo and click the button in
 
 ```
 2. Head over to your forked repository now (It should be https://github.com/yourname/ims-demo) you want to press the green button and copy the HTTPS link.
-```
 
-
-```
 3. Open up git bash in the folder you want the project by right clicking and clicking "Git bash here"(If you dont see it git isn't installed correctly)
 
-```
-
-```
 4.Once open you want to enter commands as follows
 
 ```
 git clone link
 
 ```
-5. Once the repository has been cloned you will have all the files needed to run and develop this application. Now open these files using the Eclipse editor mentioned earlier.
+5. Once the repository has been cloned you will have all the files needed to run and develop this application. Now we need to open this project in Eclipse. Open Eclipse and go to
 ```
-
-
-```
-6. Now you can run or develop this program. I'm going to go through the commands for how to actually use the program after you have ran it in eclipse or using the .jar file.
-```
-
+File, Import, Existing Maven Project
+Browse root directory and select the folder the project is in.
+Check the box and press finish.
 
 ```
-7. When the program is first ran you will be greeted with the below example. My username and password are setup as root and root. 
+
+6. Now you can run or develop this program. Before that though I would recommend changing the JDBC URL so you can use your own database.
+```
+This can be found in the Ims.java, and the DaoMysql for Customer, Items and Orders.
+Set to jdbc:mysql://localhost:3306/ims if you want to use a local database.
+
+```
+7. Now you can run the application by right clicking the Runner.java file and clicking 
+```
+Run as, Java Application
+
+```
+8. When the program is first ran you will be greeted with the below example. My username and password are setup as root and root. 
 
 ```
 INFO - What is your username
@@ -68,7 +79,7 @@ root
 INFO - What is your password
 root
 ```
-8. Next you are given options to which object you would like to use. We are going to use customer for this example. After customer is selected you're asked what you would
+9. Next you are given options to which object you would like to use. We are going to use customer for this example. After customer is selected you're asked what you would
 like to do with customer. We are going to go with create for the example.
 ```
 INFO - Which entity would you like to use?
@@ -85,7 +96,7 @@ INFO - DELETE: To remove an item from the database
 INFO - RETURN: To return to domain selection
 create
 ```
-8. Once create has been selected the program will ask for a first name and surname. Once entered, the application will then add a customer to your database.
+10. Once create has been selected the program will ask for a first name and surname. Once entered, the application will then add a customer to your database.
 It will also print a customer ID.
 ```
 INFO - Please enter a first name
@@ -94,7 +105,7 @@ INFO - Please enter a surname
 Manning
 INFO - Customer created, your customer ID is: 1
 ```
-9. You are then presented with the main screen again 
+11. You are then presented with the main screen again 
 ```
 INFO - Customer created, your customer ID is: 4 Please make note of it.
 INFO - Which entity would you like to use?
@@ -104,35 +115,19 @@ INFO - ORDER: Purchases of items
 INFO - STOP: To close the application
 ```
 
-
-End with an example of getting some data out of the system or using it for a little demo
-
 ## Running the tests
 
 Explain how to run the automated tests for this system. Break down into which tests and what they do
 
 ### Unit Tests 
 
-Explain what these tests test, why and how to run them
+Unit testing tests parts of the program to check they are correct and working.
 
 ```
-Give an example
+Right click on the testing portion of the project serc/test/java and click run as Junit Test. 
+To check coverage right click on the entire project and click coverage as Junit Test.
 ```
 
-### Integration Tests 
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
