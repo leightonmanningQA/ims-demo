@@ -19,7 +19,7 @@ import com.qa.ims.persistence.domain.Customer;
 public class CusterDaoMysqlTest {
 	public static final Logger LOGGER = Logger.getLogger(CustomerDaoMysql.class);
 
-	private static String jdbcConnectionUrl = "jdbc:mysql://localhost:3306/ims_test";
+	private static String jdbcConnectionUrl = "jdbc:mysql://34.105.148.130:3306/ims_test";
 	private static String username = "root";
 	private static String password = "root";
 

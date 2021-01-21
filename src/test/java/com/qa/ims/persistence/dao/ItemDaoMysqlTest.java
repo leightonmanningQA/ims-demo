@@ -19,7 +19,7 @@ import com.qa.ims.persistence.domain.Item;
 public class ItemDaoMysqlTest {
 	public static final Logger LOGGER = Logger.getLogger(ItemDaoMysql.class);
 
-	private static String jdbcConnectionUrl = "jdbc:mysql://localhost:3306/ims_test";
+	private static String jdbcConnectionUrl = "jdbc:mysql://34.105.148.130:3306/ims_test";
 	private static String username = "root";
 	private static String password = "root";
 
@@ -54,12 +54,12 @@ public class ItemDaoMysqlTest {
 
 	@Test
 	public void createTest() {
-		// create an instance of the class
+
 		ItemDaoMysql itemDaoMysql = new ItemDaoMysql(jdbcConnectionUrl, username, password);
-		// setting vals
+
 		String in = "xbox";
 		double ip = 499.99;
-		// create a new customer
+
 		Item item = new Item(in, ip);
 		//
 		Item savedItem = new Item(1L, in, ip);
@@ -70,12 +70,12 @@ public class ItemDaoMysqlTest {
 
 	@Test
 	public void updateTest() {
-		// create an instance of the class
+
 		ItemDaoMysql itemDaoMysql = new ItemDaoMysql(username, password);
-		// setting vals
+
 		String in = "xbox";
 		double ip = 499.99;
-		// create a new customer
+
 		Item item = new Item(in, ip);
 		//
 		Item savedItem = new Item(1L, in, ip);
@@ -86,12 +86,12 @@ public class ItemDaoMysqlTest {
 
 	@Test
 	public void deleteTest() {
-		// create an instance of the class
+
 		ItemDaoMysql itemDaoMysql = new ItemDaoMysql(jdbcConnectionUrl, username, password);
-		// setting vals
+
 		String in = "xbox";
 		double ip = 499.99;
-		// create a new customer
+
 		Item item = new Item(2L, in, ip);
 		//
 		Item savedItem = new Item(1L, in, ip);

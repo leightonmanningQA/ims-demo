@@ -1,4 +1,4 @@
-drop schema if exists ims_test
+drop database if exists ims_test;
 create database if not exists ims_test;
 create table if not exists ims_test.customers(customerId int primary key auto_increment, first_name varchar(40), surname varchar(40));
 create table if not exists ims_test.items(itemId int primary key auto_increment, itemName varchar(40), itemPrice decimal(6,2));

@@ -81,7 +81,7 @@ public class OrderController implements CrudController<Order> {
 			}
 			order.setItem(item);
 			order.setQuantity(quantity);
-			Double price = quantity * item.getItemPrice();
+			Double price = (quantity * item.getItemPrice());
 
 			Double finalPrice;
 			order = orderService.update(order);// in order dao

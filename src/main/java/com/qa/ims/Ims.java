@@ -30,9 +30,9 @@ public class Ims {
 
 	public void imsSystem() {
 		LOGGER.info("What is your username");
-		String username = Utils.getInput();
+		String username = getInput();
 		LOGGER.info("What is your password");
-		String password = Utils.getInput();
+		String password = getInput();
 
 		init(username, password);
 		boolean stop = false;
@@ -107,7 +107,7 @@ public class Ims {
 	 * @param password
 	 */
 	public void init(String username, String password) {
-		init("jdbc:mysql://localhost:3306/ims", username, password, "src/main/resources/sql-schema.sql");
+		init("jdbc:mysql://34.105.148.130:3306/ims", username, password, "src/main/resources/sql-schema.sql");
 	}
 
 	public String readFile(String fileLocation) {
@@ -145,6 +145,20 @@ public class Ims {
 			}
 			LOGGER.error(e.getMessage());
 		}
+	}
+
+	public String getInput() {
+		return Utils.getInput();
+
+	}
+
+	public Domain getDomain() {
+		return Domain.getDomain();
+
+	}
+
+	public Action getAction() {
+		return Action.getAction();
 	}
 
 }

@@ -53,6 +53,10 @@ public class Order {
 		this.quantity = quantity;
 	}
 
+	public Order(long customerId) {
+		this.customerId = customerId;
+	}
+
 	public ArrayList<Item> getIteminorder() {
 		return iteminorder;
 	}
