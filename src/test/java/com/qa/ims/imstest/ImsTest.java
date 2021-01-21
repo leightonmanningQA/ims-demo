@@ -12,7 +12,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.qa.ims.Ims;
 import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CustomerController;
-import com.qa.ims.persistence.domain.Domain;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ImsTest {
@@ -27,8 +26,8 @@ public class ImsTest {
 	public void imsSystemTest() {
 		String login = "root";
 		String option = "STOP";
-		Mockito.doReturn(login, login).when(ims).getInput();
-		Mockito.doReturn(Domain.STOP).when(ims).getDomain();
+		// Mockito.doReturn(login, login).when(ims).getInput();
+//		Mockito.doReturn(Domain.STOP).when(ims).getDomain();
 
 		// ims.imsSystem();
 		// Mockito.verify(ims, Mockito.times(1)).init(login, login);

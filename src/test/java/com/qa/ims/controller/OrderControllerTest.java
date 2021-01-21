@@ -53,13 +53,13 @@ public class OrderControllerTest {
 		String itemId = "2";
 		int quantity = 2;
 
-		Mockito.doReturn(customerId, postcode).when(orderController).getInput();
+//		Mockito.doReturn(customerId, postcode).when(orderController).getInput();
 
 		Order order = new Order(1L, 1L, postcode);
 		Order savedOrder = new Order(1L, 1L, "gh7 6hn");
 		Order item = new Order(1L, quantity);
 
-		Mockito.when(orderServices.create(order)).thenReturn(savedOrder);
+//		Mockito.when(orderServices.create(order)).thenReturn(savedOrder);
 		assertEquals(savedOrder, order);
 
 		// List<Item> itemlist = itemServices.readAll();
@@ -71,10 +71,10 @@ public class OrderControllerTest {
 	public void updateTest() {
 		String id = "1";
 		String postcode = "postcode";
-		Mockito.doReturn(id, postcode).when(orderController).getInput();
+//		Mockito.doReturn(id, postcode).when(orderController).getInput();
 		Order order = new Order(1L, 1L, postcode);
 		Order savedorder = new Order(1L, 1L, postcode);
-		Mockito.when(orderServices.updateOrder(order)).thenReturn(order);
+//		Mockito.when(orderServices.updateOrder(order)).thenReturn(order);
 		assertEquals(order, savedorder);
 	}
 
@@ -84,7 +84,7 @@ public class OrderControllerTest {
 		String orderid = "2";
 		Mockito.doReturn(orderlineid, orderid).when(orderController).getInput();
 		Order order = new Order(1L, "postcode");
-		Mockito.when(orderServices.create(order)).thenReturn(order);
+//		Mockito.when(orderServices.create(order)).thenReturn(order);
 		orderController.delete();
 		// assertEquals(null, order);
 
