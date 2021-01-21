@@ -11,26 +11,22 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them
 
-```
+
 You will have to have java installed first. Download open JDK here
 https://adoptopenjdk.net/index.html/
-```
-```
+
 You will have to have maven installed as well. Download here
 https://maven.apache.org/index.html
-```
-```
+
 I am using Eclipse to open and edit my files, I would recommend downloading it here
 https://www.eclipse.org/downloads/
-```
-```
+
 I am using mySQL workbench 8.0 to work on my database locally, I would recommend downloading it here
 https://dev.mysql.com/downloads/workbench/
-```
-```
+
 Finally I'm using git for my version control and branches. I installed it from here
 https://gitforwindows.org/
-```
+
 
 ### Installing
 
