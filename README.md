@@ -35,7 +35,8 @@ A step by step series of examples that tell you how to get a development env run
 1. Fork this repository so that you have your own copy of the files
 
 ```
-Go to link https://github.com/leightonmanningQA/ims-demo and click the button in the top right that reads "Fork".
+Go to link https://github.com/leightonmanningQA/ims-demo 
+and click the button in the top right that reads "Fork".
 
 ```
 2. Head over to your forked repository now (It should be https://github.com/yourname/ims-demo) you want to press the green button and copy the HTTPS link.
