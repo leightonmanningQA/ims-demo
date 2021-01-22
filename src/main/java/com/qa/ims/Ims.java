@@ -13,9 +13,15 @@ import org.apache.log4j.Logger;
 import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
+import com.qa.ims.controller.ItemController;
+import com.qa.ims.controller.OrderController;
 import com.qa.ims.persistence.dao.CustomerDaoMysql;
+import com.qa.ims.persistence.dao.ItemDaoMysql;
+import com.qa.ims.persistence.dao.OrderDaoMysql;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.services.CustomerServices;
+import com.qa.ims.services.ItemServices;
+import com.qa.ims.services.OrderServices;
 import com.qa.ims.utils.Utils;
 
 public class Ims {
@@ -24,36 +30,51 @@ public class Ims {
 
 	public void imsSystem() {
 		LOGGER.info("What is your username");
-		String username = Utils.getInput();
+		String username = getInput();
 		LOGGER.info("What is your password");
-		String password = Utils.getInput();
+		String password = getInput();
 
 		init(username, password);
+		boolean stop = false;
+		do {
+			LOGGER.info("Which entity would you like to use?");
+			Domain.printDomains();
 
-		LOGGER.info("Which entity would you like to use?");
-		Domain.printDomains();
+			Domain domain = Domain.getDomain();
+			if (domain.name() == "STOP") {
+				LOGGER.info("THANKS FOR USING MY PROGRAM, GOODBYE!");
+				System.exit(0);
+			}
 
-		Domain domain = Domain.getDomain();
-		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
+			LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
 
-		Action.printActions();
-		Action action = Action.getAction();
+			Action.printActions();
+			Action action = Action.getAction();
 
-		switch (domain) {
-		case CUSTOMER:
-			CustomerController customerController = new CustomerController(
-					new CustomerServices(new CustomerDaoMysql(username, password)));
-			doAction(customerController, action);
-			break;
-		case ITEM:
-			break;
-		case ORDER:
-			break;
-		case STOP:
-			break;
-		default:
-			break;
-		}
+			switch (domain) {
+			case CUSTOMER:
+				CustomerController customerController = new CustomerController(
+						new CustomerServices(new CustomerDaoMysql(username, password)));
+				doAction(customerController, action);
+				break;
+			case ITEM:
+				ItemController itemController = new ItemController(
+						new ItemServices(new ItemDaoMysql(username, password)));
+				doAction(itemController, action);
+				break;
+			case ORDER:
+				OrderController orderController = new OrderController(
+						new OrderServices(new OrderDaoMysql(username, password)),
+						new ItemServices(new ItemDaoMysql(username, password)));
+				doAction(orderController, action);
+				break;
+			case STOP:
+				stop = true;
+				break;
+			default:
+				break;
+			}
+		} while (!stop);
 
 	}
 
@@ -86,7 +107,7 @@ public class Ims {
 	 * @param password
 	 */
 	public void init(String username, String password) {
-		init("jdbc:mysql://localhost:3306/", username, password, "src/main/resources/sql-schema.sql");
+		init("jdbc:mysql://34.105.148.130:3306/ims", username, password, "src/main/resources/sql-schema.sql");
 	}
 
 	public String readFile(String fileLocation) {
@@ -124,6 +145,20 @@ public class Ims {
 			}
 			LOGGER.error(e.getMessage());
 		}
+	}
+
+	public String getInput() {
+		return Utils.getInput();
+
+	}
+
+	public Domain getDomain() {
+		return Domain.getDomain();
+
+	}
+
+	public Action getAction() {
+		return Action.getAction();
 	}
 
 }
